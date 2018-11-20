@@ -1,0 +1,12 @@
+sudo: true
+dist: trusty
+
+jobs:
+  include:
+    - stage: build docker image
+      script:
+      - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+      - docker build -t reasonreact-playground .
+      - docker images
+      - docker tag reasonreact-playground $DOCKER_USERNAME/reasonreact-playground
+      - docker push $DOCKER_USERNAME/reasonreact-playground
